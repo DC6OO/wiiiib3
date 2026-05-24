@@ -19,9 +19,9 @@ export default function Home() {
     setLoading(true);
     setError('');
     getEvents(params)
-      .then(setEvents)
+      .then((data) => setEvents(Array.isArray(data) ? data : []))
       .catch((err) => {
-        setError(err.response?.data?.message || 'Cannot reach API. Start the backend server.');
+        setError(err.message || err.response?.data?.message || 'Cannot reach API. Deploy backend or run it locally.');
         setEvents([]);
       })
       .finally(() => setLoading(false));
@@ -74,3 +74,4 @@ export default function Home() {
     </div>
   );
 }
+
